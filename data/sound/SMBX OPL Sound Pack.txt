@@ -1,0 +1,10 @@
+This sound pack did be created by Wohdlstand.
+
+For creation of this sound pack using the Sound Blaster 16 sound card with OPL-3 FM chip.
+All sounds created as MIDI files and captured to WAV.
+
+Used software:
+- OS Windows 98 SE
+- Cakewalk Sonar 1.03
+- Sound Forge 6.0
+- FM Synth MIDI Driver by Jamie O'Connel
