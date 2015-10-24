@@ -47,8 +47,6 @@ sed -i 's/\.gif/\.png/g' 'wld_tiles.ini'
 sed -i 's/\.gif/\.png/g' 'wld_paths.ini'
 sed -i 's/\.gif/\.png/g' 'wld_scenery.ini'
 cp ../lvl_bkgrd.ini ./lvl_bkgrd.ini
-cp ../music.ini ./music.ini
-cp ../sounds.ini ./sounds.ini
 
 sed -i 's/#008080/#004000/g' 'engine.ini'
 sed -i 's/Goomba/Furba/g' 'lvl_npc.ini'
