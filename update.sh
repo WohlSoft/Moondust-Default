@@ -3,7 +3,7 @@ cp ../SMBX/counters.ini .
 cp ../SMBX/engine.ini .
 cp ../SMBX/sounds.ini .
 cp ../SMBX/sound_roles.ini .
-cp ../SMBX/music.ini .
+#cp ../SMBX/music.ini .
 cp ../SMBX/rotation_table.ini .
 cp ../SMBX/lunadll_settings.ini .
 cp ../SMBX/lvl_*.ini .
