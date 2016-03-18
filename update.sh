@@ -8,9 +8,9 @@ cp ../SMBX/rotation_table.ini .
 cp ../SMBX/lunadll_settings.ini .
 cp ../SMBX/lvl_*.ini .
 cp ../SMBX/wld_*.ini .
-rm -f characters/*
+#rm -f characters/*
 rm -Rf script/*
-cp -ra ../SMBX/characters .
+#cp -ra ../SMBX/characters . #Don't update calibrations because there are customized
 cp -ra ../SMBX/fonts .
 cp -ra ../SMBX/script .
 cp -ra ../SMBX/group_tilesets .
