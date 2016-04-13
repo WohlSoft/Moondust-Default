@@ -21,6 +21,10 @@ cd characters
 ../rn.sh
 cd ..
 mv script/player/peach.lua script/player/kood.lua
+mv script/player/mario.lua script/player/demo.lua
+mv script/player/luigi.lua script/player/iris.lua
+mv script/player/toad.lua script/player/raocow.lua
+mv script/player/link.lua script/player/steath.lua
 
 sed -i 's/name\=\"Peach\"/name\=\"Kood\"/g' 'lvl_characters.ini'
 sed -i 's/name\=\"Mario\"/name\=\"Demo\"/g' 'lvl_characters.ini'
@@ -52,6 +56,7 @@ sed -i 's/#008080/#004000/g' 'engine.ini'
 sed -i 's/Goomba/Furba/g' 'lvl_npc.ini'
 sed -i 's/goomba/furba/g' 'lvl_npc.ini'
 mv script/npcs/para_goomba.lua script/npcs/para_furba.lua
+mv script/npcs/switch_goomba.lua script/npcs/switch_furba.lua
 sed -i 's/Koopa/Goopa/g' 'lvl_npc.ini'
 sed -i 's/Volcano lotus/Love frog/g' 'lvl_npc.ini'
 

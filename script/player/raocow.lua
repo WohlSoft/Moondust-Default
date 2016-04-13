@@ -1,6 +1,6 @@
-class 'peachPlayer'
+class 'toadPlayer'
 
-function peachPlayer:__init(plr_obj)
+function toadPlayer:__init(plr_obj)
     self.plr_obj = plr_obj
     if(self.plr_obj.stateID==1)then
         self.plr_obj.health = 1
@@ -11,29 +11,29 @@ function peachPlayer:__init(plr_obj)
     end
 end
 
-function peachPlayer:onLoop(tickTime)
+function toadPlayer:onLoop(tickTime)
     if(Settings.isDebugInfoShown())then
-        Renderer.printText("I am Peach! Health: "..tostring(self.plr_obj.health).." ID:"..tostring(self.plr_obj.characterID), 100, 230, 0, 15, 0xFFFF0055)
+        Renderer.printText("Hii! =)", 100, 230, 0, 15, 0xFFFF0055)
         Renderer.printText("Player x: "..tostring(self.plr_obj.x), 100, 260, 0, 15, 0xFFFF0055)
         Renderer.printText("Player y: "..tostring(self.plr_obj.y), 100, 300, 0, 15, 0xFFFF0055)
     end
     if((self.plr_obj.stateID==4) or (self.plr_obj.stateID==5))then
         if((not self.plr_obj.onGround) and self.plr_obj:getKeyState(KEY_JUMP) )then
-            if(self.plr_obj.speedY>=4)then
-                self.plr_obj.speedY=4
+            if(self.plr_obj.speedY>=3)then
+                self.plr_obj.speedY=3
                 self.plr_obj:setAnimation(15, 128)
             end
         end
     end
 end
 
-function peachPlayer:onHarm(harmEvent)
+function toadPlayer:onHarm(harmEvent)
     processPlayerHarm(self.plr_obj, harmEvent)
 end
 
-function peachPlayer:onTakeNpc(npcObj)
+function toadPlayer:onTakeNpc(npcObj)
     ProcessPlayerPowerUP(self.plr_obj, npcObj)
 end
 
-return peachPlayer
+return toadPlayer
 
