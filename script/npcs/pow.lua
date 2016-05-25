@@ -42,6 +42,7 @@ function powBrick:onKill(killEvent)
             Audio.playSound(2)
         end
     end
+    Level.shakeScreen(30.0, 30.0, 0.05, 0.05)
     Audio.playSound(self.def_ThwompSnd)
 end
 

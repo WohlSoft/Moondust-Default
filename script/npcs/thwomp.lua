@@ -6,10 +6,12 @@ local AI_WAITING_ON_GROUND = 2
 local AI_MOVING_UP = 3
 
 function thwomp:initProps()
-
     -- Currents
     self.cur_mode = AI_WATCHING
     self.cur_wait_ticks = 0
+    self.npc_obj.y = self.initial_y
+    self.npc_obj.speedX = 0
+    self.npc_obj.speedY = 0
 end
 
 function thwomp:__init(npc_obj)
@@ -42,6 +44,25 @@ function thwomp:onActivated()
     self:initProps()
 end
 
+function thwomp:smokeEffect()
+    local effect = EffectDef();
+        effect.id = 10
+        effect.startX = self.npc_obj.center_x - self.npc_obj.width/4.0
+        effect.startY = self.npc_obj.bottom
+        effect.gravity = 0.0;
+        effect.startDelay = 0.0;
+        effect.maxVelX = 25.0;
+        effect.maxDelay = 0;
+        effect.loopsCount = 1;
+        effect.framespeed = 125;
+        effect.velocityX = -3.0;
+        effect.velocityY = 0.0;
+    Effect.runEffect(effect, true);
+        effect.startX = self.npc_obj.center_x + self.npc_obj.width/4.0
+        effect.velocityX = 3.0;
+    Effect.runEffect(effect, true);
+end
+
 function thwomp:onLoop(tickTime)
 
     if(self.is180==true)then
@@ -60,13 +81,22 @@ function thwomp:onLoop(tickTime)
         if(self.plr_detector:detected()==true)then
             self.cur_mode=AI_FALLING
             self.npc_obj.speedX = 0
-            self.npc_obj.speedY = self.speed_fall
+            if(self.npc_obj.speedY<self.speed_fall)then
+                self.npc_obj.gravity = 2.0
+                self.npc_obj:applyAccel( 0.0, 5.0 )
+            else
+                self.npc_obj.gravity = 0.0
+                self.npc_obj.speedY = self.speed_fall
+            end
         end
     elseif(self.cur_mode == AI_FALLING)then
         if(self.npc_obj.onGround)then
+            self.npc_obj.gravity = 0.0
+            Level.shakeScreenY(10.0, 0.05)
             Audio.playSound(self.def_thwompSoundID)
             self.npc_obj.speedY = 0
             self.cur_mode = AI_WAITING_ON_GROUND
+            self:smokeEffect()
         end
     elseif(self.cur_mode == AI_WAITING_ON_GROUND)then
         if(self.def_wait_ticks > self.cur_wait_ticks)then
