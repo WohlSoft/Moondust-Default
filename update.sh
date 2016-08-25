@@ -5,7 +5,6 @@ cp ../SMBX/sounds.ini .
 cp ../SMBX/sound_roles.ini .
 #cp ../SMBX/music.ini .
 cp ../SMBX/rotation_table.ini .
-cp ../SMBX/lunadll_settings.ini .
 cp ../SMBX/lvl_*.ini .
 cp ../SMBX/wld_*.ini .
 #rm -f characters/*
