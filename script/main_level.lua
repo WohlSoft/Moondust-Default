@@ -13,6 +13,9 @@ RED_SW    = 2
 BLUE_SW   = 3
 YELLOW_SW = 4
 
+-- Font to print numeric counters
+numericFont = Font.getId("numeric");
+
 -- Increase player health
 function plr_healthUp(plr)
     if( plr.health < 3 )then
@@ -34,13 +37,17 @@ local gfx_coin     = Graphics.loadImage( Paths.CommonGFX().."coins.png" )
 
 function onDrawHUD(camera, state)
     if(state.characterID >=3)then
+        local hp1 = gfx_heart1;
+        local hp0 = gfx_heart0;
         for i=0,2,1
         do
-            if(state.health>=(i+1))then
-                Graphics.drawImage(gfx_heart1, camera.centerX-42+(32*i), camera.renderY+16 )
+            local hp = nil
+            if(state.health >= (i + 1))then
+                hp = hp1;
             else
-                Graphics.drawImage(gfx_heart0, camera.centerX-42+(32*i), camera.renderY+16 )
+                hp = hp0;
             end
+            Graphics.drawImage(hp, camera.centerX - 42 + (32 * i), camera.renderY + 16)
         end
     else
         Graphics.drawImage(gfx_itemslot, camera.centerX-(gfx_itemslot.w/2.0), camera.renderY+16 )
@@ -48,23 +55,23 @@ function onDrawHUD(camera, state)
 
     Graphics.drawImage(gfx_1up,  camera.centerX-165, camera.renderY+26 )
     Graphics.drawImage(gfx_x,    camera.centerX-125, camera.renderY+27 )
-    Renderer.printText(tostring(state.lives), camera.centerX-103, camera.renderY+27, 3, 15, 0xFFFFFFFF)
-    
-    if( state.leeks ~= 0 ) then
-        Graphics.drawImage(gfx_x,    camera.centerX-125, camera.renderY+47 )
-        Graphics.drawImage(gfx_star, camera.centerX-149, camera.renderY+46 )
-        Renderer.printText(tostring(state.leeks), camera.centerX-103, camera.renderY+47, 3, 15, 0xFFFFFFFF)
-    end
-    
-    Graphics.drawImage(gfx_x,    camera.centerX+112, camera.renderY+27 )
-    Graphics.drawImage(gfx_coin, camera.centerX+88, camera.renderY+26 )
-    Renderer.printText(tostring(state.coins), camera.centerX+152, camera.renderY+27, 3, 15, 0xFFFFFFFF)
+    Renderer.printText(tostring(state.lives), camera.centerX - 103, camera.renderY+27, numericFont, 15, 0xFFFFFFFF)
 
-    Renderer.printText(tostring(state.points), camera.centerX+152, camera.renderY+47, 3, 15, 0xFFFFFFFF)
+    if( state.leeks ~= 0 ) then
+        Graphics.drawImage(gfx_x,    camera.centerX - 125, camera.renderY+47 )
+        Graphics.drawImage(gfx_star, camera.centerX - 149, camera.renderY+46 )
+        Renderer.printText(tostring(state.leeks), camera.centerX - 103, camera.renderY+47, numericFont, 15, 0xFFFFFFFF)
+    end
+
+    Graphics.drawImage(gfx_x,    camera.centerX+112, camera.renderY+27 )
+    Graphics.drawImage(gfx_coin, camera.centerX+88, camera.renderY + 26 )
+    Renderer.printText(tostring(state.coins), camera.centerX + 152, camera.renderY + 27, numericFont, 15, 0xFFFFFFFF)
+
+    Renderer.printText(tostring(state.points), camera.centerX + 152, camera.renderY + 47, numericFont, 15, 0xFFFFFFFF)
 end
 
 function onLoop(tickTime)
-    -- Renderer.printText("A tiny test: time of tick is: "..tostring(tickTime), 10, 10, 0, 15, 0xFF0000FF)
+    -- Renderer.printText("A tiny test: time of tick is: "..tostring(tickTime), 10, 10, FontType.DefaultRaster, 15, 0xFF0000FF)
     pSwitch.process(tickTime)
 end
 
@@ -164,7 +171,7 @@ end
 function ShootFireball(plr)
     local thrownNPC=plr:spawnNPC(13, GENERATOR_APPEAR, SPAWN_UP, false)
     if(thrownNPC~=nil)then
-        thrownNPC.motionSpeed = 256 + math.abs(plr.speedX)*32
+        thrownNPC.motionSpeed = 5 + math.abs(plr.speedX)
         thrownNPC.direction = plr.direction
         if(plr:getKeyState(KEY_UP))then
             thrownNPC.speedY = -4
@@ -185,10 +192,10 @@ function ShootHammer(plr)
         thrownNPC.direction = plr.direction
         if(plr:getKeyState(KEY_UP))then
             thrownNPC.speedY = -7
-            thrownNPC.motionSpeed = 128 + math.abs(plr.speedX)*32
+            thrownNPC.motionSpeed = 5 + math.abs(plr.speedX)
         else
             thrownNPC.speedY = -3
-            thrownNPC.motionSpeed = 256 + math.abs(plr.speedX)*32
+            thrownNPC.motionSpeed = 5 + math.abs(plr.speedX)
         end
         thrownNPC.center_x = plr.center_x + plr.direction*(plr.width/2)
         thrownNPC.center_y = plr.center_y-16

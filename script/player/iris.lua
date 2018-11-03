@@ -7,23 +7,17 @@ function luigiPlayer:__init(plr_obj)
     elseif(self.plr_obj.stateID>=2)then
         self.plr_obj.health = 2
     end
+    self.raccoon = require("player/skills/raccoon")
+    self.raccoon:init(self)
 end
 
 function luigiPlayer:onLoop(tickTime)
     if(Settings.isDebugInfoShown())then
-        Renderer.printText("Luigi! Luigi!", 100, 430, 0, 15, 0xFFFF0055)
-        Renderer.printText("Player x: "..tostring(self.plr_obj.x), 100, 460, 0, 15, 0xFFFF0055)
-        Renderer.printText("Player y: "..tostring(self.plr_obj.y), 100, 400, 0, 15, 0xFFFF0055)
+        Renderer.printText("Luigi! Luigi!", 100, 430, FontType.DefaultRaster, 15, 0xFFFF0055)
+        Renderer.printText("Player x: "..tostring(self.plr_obj.x), 100, 460, FontType.DefaultRaster, 15, 0xFFFF0055)
+        Renderer.printText("Player y: "..tostring(self.plr_obj.y), 100, 400, FontType.DefaultRaster, 15, 0xFFFF0055)
     end
-
-    if((self.plr_obj.stateID==4) or (self.plr_obj.stateID==5))then
-        if((not self.plr_obj.onGround) and self.plr_obj:getKeyState(KEY_JUMP) )then
-            if(self.plr_obj.speedY>=2)then
-                self.plr_obj.speedY=2
-                self.plr_obj:setAnimation(15, 128)
-            end
-        end
-    end
+    self.raccoon:loop(tickTime)
 end
 
 function luigiPlayer:onHarm(harmEvent)
@@ -43,6 +37,7 @@ function luigiPlayer:onKeyPressed(keyType)
         self.plr_obj:playAnimationOnce(7, 128, true, false, 1)
         ShootHammer(self.plr_obj)
     end
+    self.raccoon:keyPress(keyType)
 end
 
 return luigiPlayer
